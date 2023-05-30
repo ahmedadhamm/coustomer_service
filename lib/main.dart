@@ -32,7 +32,7 @@ class MyApplication extends StatelessWidget {
         AddRoomScreen.routeName: (context) => AddRoomScreen(),
         ChatThread.routeName: (context) => ChatThread(),
       },
-      initialRoute: RegisterScreen.routeName,
+      initialRoute: HomeScreen.routeName,
     );
   }
 }

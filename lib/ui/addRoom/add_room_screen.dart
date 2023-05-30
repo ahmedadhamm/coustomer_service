@@ -115,8 +115,8 @@ class _AddRoomScreenState extends BaseState<AddRoomScreen, AddRoomViewModel>
                           }),
                       TextFormField(
                         controller: aidadatecontroller,
-                        validator: (text) {
-                          if (text == null || text.trim().isEmpty) {
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
                             return "Please Enter Data";
                           }
                           return null;
@@ -143,19 +143,21 @@ class _AddRoomScreenState extends BaseState<AddRoomScreen, AddRoomViewModel>
                           ),
                         ),
                         onTap: () async {
-                          DateTime? pickeddate = await showDatePicker(
+                          DateTime? pickedDate = await showDatePicker(
                               context: context,
                               initialDate: DateTime.now(),
-                              firstDate: DateTime(2022),
-                              lastDate: DateTime(2036));
-
-                          if (pickeddate != null) {
-                            setState(() {
-                              var datasaida =
-                                  DateFormat('dd-MM-yyyy').format(pickeddate);
-                              String dateString = '2021-05-30';
-                              DateTime dateTime = DateTime.parse(dateString);
-                            });
+                              firstDate: DateTime.now(),
+                              lastDate: DateTime(2040));
+                          if (pickedDate != null) {
+                            print(pickedDate);
+                            String formattedDate =
+                                DateFormat('dd-MM-yyyy').format(pickedDate);
+                            print(
+                                formattedDate); //formatted date output using intl package =>  2021-03-16
+                            setState(() =>
+                                dateofbirthController.text = formattedDate);
+                          } else {
+                            print("Date is not selected");
                           }
                         },
                         style:
@@ -171,15 +173,13 @@ class _AddRoomScreenState extends BaseState<AddRoomScreen, AddRoomViewModel>
                           }
                           return null;
                         },
-                        maxLines: 3,
-                        minLines: 3,
                         decoration:
                             const InputDecoration(labelText: ' The Address'),
                       ),
                       TextFormField(
                         controller: dateofbirthController,
-                        validator: (value) {
-                          if (value!.isEmpty) {
+                        validator: (text) {
+                          if (text == null || text.trim().isEmpty) {
                             return 'Please enter your date of birth';
                           }
                           return null;
